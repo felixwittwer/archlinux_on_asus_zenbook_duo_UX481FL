@@ -71,6 +71,9 @@ echo on | sudo tee /sys/class/nvme/nvme0/device/power/control
 
 > [!NOTE]
 > You can check if your SSD is working by running `lsblk`. Under the nvme section you should se a `nvme0n1`. Make srue the size is correct so however large your SSD is if the SSD is in a poersaving mode and the installation can't access it there will be a size of 0B.
+>``` shell
+>lsblk
+>```
 
 ## Installation
 
@@ -81,6 +84,12 @@ First make sure you have a stable internet connection or a internet conenction a
 Run `ip addr show` to show existing network adapters. There will a **_wlan0_** which we are going to use to connect via wifi.
 
 To show available networks run `iwctl` which will open up a seperate console. And the type in `station wlan0 get-networks`
+``` shell
+iwctl
+```
+``` shell
+station wlan0 get-networks
+```
 
 ![arch start](assets/arch_installation/ip_addr_show_iwctl.png)
 
@@ -97,6 +106,9 @@ iwctl --passphrase "{{password}}" station wlan0 connect {{SSID}}
 
 > [!NOTE]
 > You can run `ip addr show` to check weather there was a IP address assigned. Your IP will show up in the wlan0 section.
+>``` shell
+>ip addr show
+>```
 
 > [!TIP]
 > Since a internet connection is now established you can also continue via another machine over ssh. <br>
@@ -106,5 +118,148 @@ iwctl --passphrase "{{password}}" station wlan0 connect {{SSID}}
 
 Run `archinstall` to start the installation of arch linux
 
+``` shell
+archinstall
+```
+
+<!-- TODO short form of mandatory configuration and new file with long explanation -->
+
+
+> [!CAUTION]
+> Do **`not`** reboot imediately. We need to make some power settings of the SSD permanet.
+
+### Post install
+
+#### Permanent SSD power settings
+
+When asked chroot into installation.
+
+![chroot post install](assets/post-install/chroot.png)
+
+You will now see a fesh console where we can setup some stuff.
+
+For configuring we need to use any editor of choice we will use nano which needs to be installed with:
+
+``` shell
+pacman -Sy nano
+```
+
+![install nano](assets/post-install/edit_grub_config/install_nano.png)
+
+Now open the grub config file with: `sudo nano /etc/default/grub`.
+
+``` shell
+sudo nano /etc/default/grub
+```
+
+The line `GRUB_CMDLINE_LINUX_DEFAULT="quiet"` needs to be replaced by `GRUB_CMDLINE_LINUX_DEFAULT="quiet nvme_core.default_ps_max_latency_us=0 pcie_aspm=off pcie_port_pm=off nvme.noacpi=1"`
+
+> [!NOTE]
+> You might remember. These were the parameters we used at the beginning.
+
+![edit grub config](assets/post-install/edit_grub_config/new_grub_config.png)
+
+> [!NOTE]
+> Exit nano with `CTRL` + `X` and save the changes.
+
+Run `sudo grub-mkconfig -o /boot/grub/grub.cfg` to make the chnages permanent.
+
+``` shell
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+<br>
+<br>
+
+To actually force the state we need to do one last thing. Start creating a new service with `sudo nano /etc/systemd/system/nvme-d0.service`
+
+``` shell
+sudo nano /etc/systemd/system/nvme-d0.service
+```
+
+``` nano
+[Unit]
+Description=Force NVMe to D0 (disable runtime PM)
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo on > /sys/class/nvme/nvme0/device/power/control'
+
+[Install]
+WantedBy=multi-user.target
+```
+
+![create nvme service](assets/post-install/nvme_service/nvme_service.png)
+
+> [!NOTE]
+> Exit nano with `CTRL` + `X` and save the changes.
+
+Now enable the service so it starts on every boot `sudo systemctl enable nvme-d0.service`.
+``` shell
+sudo systemctl enable nvme-d0.service
+```
+
+![enable nvme service](assets/post-install/nvme_service/nvme_enable_service.png)
+
+> [!WARNING]
+> Plase do **`not`** reboot now. We will now setup a desktop environment and display manager so you can enjoy it the first time you boot into your system.
+
+#### Desktop environment and display manager
+
+There are many desktop environemtns and display managers out there we will be using [KDE-Plasma](https://kde.org/de/plasma-desktop/)[^2] and [SDDM](https://wiki.archlinux.org/title/SDDM)[^3].
+
+First fully update the system `sudo pacman -Syu`.
+
+``` shell
+sudo pacman -Syu
+```
+
+Install KDE Plasma and its standard applications with `sudo pacman -S plasma kde-applications`.
+
+``` shell
+sudo pacman -S plasma kde-applications
+```
+
+> [!NOTE]
+> When asked so select a source for some packages the default is fine.
+
+![kde plasma installing](assets/post-install/desktop_env_disp_manager/install_kde_plasma.png)
+
+> [!NOTE]
+> The installation process of KDE Plasma can take some time.
+
+Install SDDM with `sudo pacman -S sddm`.
+
+``` shell
+sudo pacman -S sddm
+```
+
+After installing SDDM enable it `sudo systemctl enable sddm`
+
+``` shell
+sudo systemctl enable sddm
+```
+
+![install and enable sddm](assets/post-install/desktop_env_disp_manager/install_enable_sddm.png)
+
+## Reboot
+
+> [!WARNING]
+> Now is a good time to remove the installation media. If not removed the system could try rebooting into the installer.
+
+You might need to type `exit` to get out of the current console. Reboot the system with `sudo reboot`.
+
+``` shell
+sudo reboot
+```
+
+> [!NOTE]
+> SDDMs Interface could look a bit out of date. The eseaiest way to change it is using the GUI. After logging in you can search for `SDDM` inside the system settings.
+
+> [!TIP]
+> You are free to customize your Arch Linux form now on. Here are some sttings that are **_ZenBook Duo_** specific that I [would recommend](settings_suggestions.md) (see [`settings_suggestions.md`](settings_suggestions.md)).
 
 [^1]: https://www.asus.com/laptops/for-home/zenbook/zenbook-duo-ux481/helpdesk_bios/?model2Name=Zenbook-Duo-UX481
+[^2]: https://kde.org/de/plasma-desktop/
+[^3]: https://wiki.archlinux.org/title/SDDM
