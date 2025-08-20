@@ -54,7 +54,57 @@ Now please add these parameters to the line right after the parameters you alrea
 > - **_pcie_port_pm=off_** → disables port-level runtime PM (stops link from going to D3cold). <br>
 > - **_nvme.noacpi=1_** → ignores buggy ACPI tables that might try to override.
 
+![arch start](assets/arch_installation/arch_start.png)
 
+Before starting the installation we need to perform one last step to stop the SSD from going into a power save mode. 
+Execute the following command:
+
+``` shell
+cat /sys/class/nvme/nvme0/device/power/control
+```
+
+If it returnes `auto` (which is likely) execute:
+
+``` shell
+echo on | sudo tee /sys/class/nvme/nvme0/device/power/control
+```
+
+> [!NOTE]
+> You can check if your SSD is working by running `lsblk`. Under the nvme section you should se a `nvme0n1`. Make srue the size is correct so however large your SSD is if the SSD is in a poersaving mode and the installation can't access it there will be a size of 0B.
+
+## Installation
+
+### Connect to the Internet
+
+First make sure you have a stable internet connection or a internet conenction at all. Due to the ZenBook duo not having an eternet port we need to establish a connection wirelessly.
+
+Run `ip addr show` to show existing network adapters. There will a **_wlan0_** which we are going to use to connect via wifi.
+
+To show available networks run `iwctl` which will open up a seperate console. And the type in `station wlan0 get-networks`
+
+![arch start](assets/arch_installation/ip_addr_show_iwctl.png)
+
+Connect to your network with:
+
+``` shell
+iwctl --passphrase "{{password}}" station wlan0 connect {{SSID}}
+```
+
+> [!NOTE]
+> Replace {{password}} and {{SSID}} with your networks password and name.
+
+<br>
+
+> [!NOTE]
+> You can run `ip addr show` to check weather there was a IP address assigned. Your IP will show up in the wlan0 section.
+
+> [!TIP]
+> Since a internet connection is now established you can also continue via another machine over ssh. <br>
+> See [ssh_install.md](ssh_install.md) for further information an instructions.
+
+### Installing Arch
+
+Run `archinstall` to start the installation of arch linux
 
 
 [^1]: https://www.asus.com/laptops/for-home/zenbook/zenbook-duo-ux481/helpdesk_bios/?model2Name=Zenbook-Duo-UX481
