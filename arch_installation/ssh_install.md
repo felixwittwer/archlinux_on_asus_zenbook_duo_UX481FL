@@ -28,3 +28,7 @@ On a different machine open a comand prompt and type `ssh root@{{your ip}}`
 > [!NOTE]
 > Make sure to replace {{your ip}} with the one of your ZenBook Duo on which you want to install Arch. <br>
 > You can see the IP address by typing `ip addr show`.
+
+<br>
+
+You can now go back to the [main guide for installing Arch](./README.md#arch-installation).
