@@ -7,6 +7,10 @@
   ![Nvidia](https://img.shields.io/badge/NVIDIA-GeForce®%20MX250-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
   ![Intel](https://img.shields.io/badge/Intel-Core_i5_10210U-0071C5?style=for-the-badge&logo=intel&logoColor=white)
 
+  <br>
+
+  <img src="assets/Asus_ZenBook_Duo.png" style="width: 70%">
+
 </div>
 <br>
 
