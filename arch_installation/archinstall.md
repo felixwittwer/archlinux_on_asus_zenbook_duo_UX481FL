@@ -96,4 +96,20 @@ archinstall
 
 - `Timezone` set to your timezone
 
-You can now go back to the [main guide for installing Arch](./README.md#installing-arch).
+
+## Installing
+
+Go down to install and press `enter`. After showing you your configuration which you need to verify the installation should start.
+
+![kernel selection](assets/archinstall/install.png)
+
+![kernel selection](assets/archinstall/install_starting.png)
+
+> [!CAUTION]
+> Do **`not`** reboot imediately. We need to make some power settings of the SSD permanet. <br>
+> [`#permanent SSD power setttings`](./README.md#permanent-ssd-power-settings)
+
+<br>
+
+> [!NOTE]
+> You can now go back to the [main guide for installing Arch](./README.md#installing-arch).

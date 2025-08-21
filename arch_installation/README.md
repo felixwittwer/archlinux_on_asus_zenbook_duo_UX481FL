@@ -141,9 +141,6 @@ archinstall
 
 Go down to install and start installing Arch.
 
-<!-- TODO short form of mandatory configuration and new file with long explanation -->
-
-
 > [!CAUTION]
 > Do **`not`** reboot imediately. We need to make some power settings of the SSD permanet.
 
@@ -277,7 +274,7 @@ sudo reboot
 > SDDMs Interface could look a bit out of date. The eseaiest way to change it is using the GUI. After logging in you can search for `SDDM` inside the system settings.
 
 > [!TIP]
-> You are free to customize your Arch Linux form now on. Here are some sttings that are **_ZenBook Duo_** specific that I [would recommend](settings_suggestions.md) (see [`settings_suggestions.md`](settings_suggestions.md)).
+> You are free to customize your Arch Linux form now on. Here are some settings that are **_ZenBook Duo_** specific that I [would recommend](settings_suggestions.md) (see [`settings_suggestions.md`](settings_suggestions.md)).
 
 [^1]: https://www.asus.com/laptops/for-home/zenbook/zenbook-duo-ux481/helpdesk_bios/?model2Name=Zenbook-Duo-UX481
 [^2]: https://kde.org/de/plasma-desktop/

@@ -31,4 +31,5 @@ On a different machine open a comand prompt and type `ssh root@{{your ip}}`
 
 <br>
 
-You can now go back to the [main guide for installing Arch](./README.md#installing-arch).
+> [!NOTE]
+> You can now go back to the [main guide for installing Arch](./README.md#installing-arch).
