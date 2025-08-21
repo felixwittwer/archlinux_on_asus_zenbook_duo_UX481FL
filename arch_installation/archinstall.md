@@ -43,7 +43,7 @@ archinstall
 
 - `Bootloader` set to `GRUB`
 
-![select bootloader](assets/archinstall/bootloader/boatloader.png)
+![select bootloader](assets/archinstall/bootloader/bootloader.png)
 
 ## Hostname
 
