@@ -112,15 +112,34 @@ iwctl --passphrase "{{password}}" station wlan0 connect {{SSID}}
 
 > [!TIP]
 > Since a internet connection is now established you can also continue via another machine over ssh. <br>
-> See [ssh_install.md](ssh_install.md) for further information an instructions.
+> See [`ssh_install.md`](ssh_install.md) for further information an instructions.
 
 ### Installing Arch
 
-Run `archinstall` to start the installation of arch linux
+Run `archinstall` to start a "guided" installation of Arch Linux.
 
 ``` shell
 archinstall
 ```
+
+![arch install](assets/archinstall/install.png)
+
+> [!NOTE]
+> I will provide you with some general settings here. If you want more detailed instructions with screenshorts on `archinstall` look here: [`archinstall.md`](archinstall.md)
+
+- `Archinstall language` set to your needs
+- `Locales` set to your keyboard layout and country specific settings
+- `Mirrors and repositories` set `Select region` to your country
+- `Disk configuration` best-effort default partition layout works. If you want to make incremental snapshots of your system. I recommend `btrfs` for the filesystem type. If choosen select `yes (default)` for the default structure and `Use compression` to enable CoW(Copy on Write)
+- `Bootloader` set to `GRUB`
+- `Hostname` set to your liking
+- `Authentication` set up a password for root and create a new user that is a superuser
+- `Applications` leave `Bluetooth` as is and inside `Audio` change to pipewire
+- `Kernels` linux (default)
+- `Network configuration` select `Use NetworkManager`
+- `Timezone` set to your timezone
+
+Go down to install and start installing Arch.
 
 <!-- TODO short form of mandatory configuration and new file with long explanation -->
 
