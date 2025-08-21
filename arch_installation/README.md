@@ -25,11 +25,11 @@ You have now set the SATA mode to AHCI, disabled Fast Boot and Secure Boot.
 
 ### SSD Firmware
 
-I am using a **_Samsung 970 EVO Plus 1TB_** make sure it als has the newest version installed. The eseaiest way to check is by using Samsung Magican on a Windows machine.
+I am using a **_Samsung 970 EVO Plus 1TB_** make sure it als has the newest version installed. The easiest way to check is by using Samsung Magican on a Windows machine.
 
 ## Booting
 
-When powering on your ZenBook Duo you should se a screen similar to this one. Ther will be a 15 second timer at the bottom just press the down and up arrow keys to abort the timer. 
+When powering on your ZenBook Duo you should see a screen similar to this one. Ther will be a 15 second timer at the bottom, just press the down and up arrow keys to abort the timer. 
 
 ![standard grub screen](assets/arch_installation/grub_boot.png)
 
@@ -37,7 +37,7 @@ With the first option selected press `e`. We will input some additional starting
 
 > [!NOTE]
 > **Why are we adding additional parameters?** <br>
-> As I noticed this exact laptop model has difficulties having the SSD in a D0 state where it can be used to write the installation on. If you don't use these parameters the SSD will likely show up in the beginning (`lsblk`) but afterwards turn into a D3cold state to save power. I suppose this is happening because the installer and Laptop dont communicate correctly. By inputting these parameters the SSD will remain in the D0 state no matter what.
+> As I noticed this exact laptop model has difficulties having the SSD in a D0 state where it can be used to write the installation on. If you don't use these parameters the SSD will likely show up in the beginning (`lsblk`) but afterwards turn into a D3cold state to save power. I suppose this is happening because the installer and Laptop don't communicate correctly. By inputting these parameters the SSD will remain in the D0 state no matter what.
 
 ![grub screen after e pressed](assets/arch_installation/grub_boot_e.png)
 
@@ -70,7 +70,7 @@ echo on | sudo tee /sys/class/nvme/nvme0/device/power/control
 ```
 
 > [!NOTE]
-> You can check if your SSD is working by running `lsblk`. Under the nvme section you should se a `nvme0n1`. Make srue the size is correct so however large your SSD is if the SSD is in a poersaving mode and the installation can't access it there will be a size of 0B.
+> You can check if your SSD is working by running `lsblk`. Under the nvme section you should se a `nvme0n1`. Make srue the size is correct so however large your SSD is if the SSD is in a powersaving mode and the installation can't access it there will be a size of 0B.
 >``` shell
 >lsblk
 >```
@@ -81,9 +81,9 @@ echo on | sudo tee /sys/class/nvme/nvme0/device/power/control
 
 First make sure you have a stable internet connection or a internet conenction at all. Due to the ZenBook duo not having an eternet port we need to establish a connection wirelessly.
 
-Run `ip addr show` to show existing network adapters. There will a **_wlan0_** which we are going to use to connect via wifi.
+Run `ip addr show` to show existing network adapters. There will a be **_wlan0_** which we are going to use to connect via wifi.
 
-To show available networks run `iwctl` which will open up a seperate console. And the type in `station wlan0 get-networks`
+To show available networks run `iwctl` which will open up a seperate console. And then type in `station wlan0 get-networks`
 ``` shell
 iwctl
 ```
@@ -105,7 +105,7 @@ iwctl --passphrase "{{password}}" station wlan0 connect {{SSID}}
 <br>
 
 > [!NOTE]
-> You can run `ip addr show` to check weather there was a IP address assigned. Your IP will show up in the wlan0 section.
+> You can run `ip addr show` to check whether there was a IP address assigned. Your IP will show up in the wlan0 section.
 >``` shell
 >ip addr show
 >```
@@ -154,7 +154,7 @@ When asked chroot into installation.
 
 You will now see a fesh console where we can setup some stuff.
 
-For configuring we need to use any editor of choice we will use nano which needs to be installed with:
+For configuring we need to use any editor of choice. We will use nano which needs to be installed with:
 
 ``` shell
 pacman -Sy nano
@@ -178,7 +178,7 @@ The line `GRUB_CMDLINE_LINUX_DEFAULT="quiet"` needs to be replaced by `GRUB_CMDL
 > [!NOTE]
 > Exit nano with `CTRL` + `X` and save the changes.
 
-Run `sudo grub-mkconfig -o /boot/grub/grub.cfg` to make the chnages permanent.
+Run `sudo grub-mkconfig -o /boot/grub/grub.cfg` to make the changes permanent.
 
 ``` shell
 sudo grub-mkconfig -o /boot/grub/grub.cfg
