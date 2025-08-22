@@ -27,6 +27,14 @@ Start your journey with Arch on the ZenBook Duo UX481FL by following [this guide
 For a better reading experience, you can also check the [Wiki](https://github.com/felixwittwer/archlinux_on_asus_zenbook_duo_UX481FL/wiki), which contains the same pages.  
 [**`→ Wiki Arch Installation Guide`**](https://github.com/felixwittwer/archlinux_on_asus_zenbook_duo_UX481FL/wiki)
 
+## What is planned for the future
+
+- making the custom keys work
+- IR facial unlock
+- Windows VMs for applications like Fusion360 or other
+- custom ricing
+- optimize power efficency
+
 ## LICENSE
 
 This repository uses a dual license:
